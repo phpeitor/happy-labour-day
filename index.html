@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Labour Day</title>
+    <link rel="stylesheet" href="./css/style.css?id=2">
+    <link href="./css/fonts.css?family=Righteous&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div class="efeito">
+		<div class="line"> </div>
+			<video src="video/video.mp4" autoplay loop muted></video>
+			<h1 id="mensaje">Feliz día del Trabajador</h1>  
+			
+			
+	</div>
+	
+	<script>
+		function obtenerParametroId() {
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get('id');
+		}
+
+		function actualizarMensaje() {
+			const id = obtenerParametroId();
+			const mensaje = document.getElementById('mensaje');
+			if (id) {
+				mensaje.innerHTML += `<small>${atob(id)} agradece tu dedicación y esfuerzo en tu labor</small>`;
+			} else {
+				mensaje.innerHTML += `<small>Recuerda que hoy no vas a a trabajar...</small>`;
+			}
+		}
+
+		window.onload = function() {
+			actualizarMensaje();
+		};
+	</script>
+
+</body>
+</html>
