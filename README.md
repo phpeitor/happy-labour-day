@@ -9,11 +9,28 @@ Landing page conmemorativa por el Dia del Trabajador.
 
 [![Video Demo](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=VXpRDStn5Yk)
 
-## Contexto
+## Cómo ejecutar el proyecto 🚀
 
-Esta pagina muestra un saludo visual con video de fondo y un mensaje central para reconocer la dedicacion y el esfuerzo en el trabajo.
+1. Clonar el proyecto.
 
-El contenido esta pensado para compartirse como una felicitacion breve, directa y emotiva.
+```bash
+git clone https://github.com/phpeitor/happy-labour-day.git
+cd happy-labour-day
+```
+
+2. Instala la extensión Live Server en VS Code.
+3. Abre `index.html` con Live Server.
+4. Prueba el responsive con las DevTools (F12) → Modo dispositivo → selecciona tamaño móvil.
+
+### Opción 2: Abrir el HTML directamente 🌐
+
+Puedes abrir `index.html` en el navegador. Para mejor experiencia:
+1. Sirve desde un servidor local (recomendado para pruebas de responsive).
+2. Abre las DevTools en modo móvil para validar el diseño adaptatativo.
+
+### Opción 3: Hosting en línea 🌍
+
+Sube los archivos a tu servidor web (Apache, Nginx, etc.) y accede desde dispositivos reales para probar completamente el responsive en móvil.
 
 ## Como funciona
 
