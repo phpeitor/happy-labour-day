@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+:root {
+    --brand-navy: #0f1f4d;
+    --brand-amber: #ff7a1a;
+    --brand-amber-soft: #ffb36b;
+    --text-strong: #f8f4ed;
+    --text-support: #ffe4c5;
+}
+
 
 .efeito {
     width: 100%;
@@ -12,6 +20,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+.efeito::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 30%, rgba(255, 122, 26, 0.22), transparent 38%),
+        radial-gradient(circle at 85% 75%, rgba(19, 38, 99, 0.5), transparent 42%),
+        linear-gradient(120deg, rgba(6, 12, 31, 0.62), rgba(12, 28, 71, 0.48));
+    z-index: 1;
+}
+
+.efeito::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -20%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 207, 158, 0.18), rgba(255, 255, 255, 0));
+    transform: skewX(-15deg);
+    animation: lightSweep 10s ease-in-out infinite;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .efeito video {
@@ -20,21 +55,25 @@
     position: absolute;
     top: 0;
     left: 0;
-    object-fit: cover; 
+    object-fit: cover;
+    filter: saturate(1.08) brightness(0.74) contrast(1.05);
+    animation: videoDrift 20s ease-in-out infinite alternate;
 }
 
 .efeito h1 {
     width: 100%;
     height: 100%;
-    font-size: 140px;
-    color: #09177a;
-    mix-blend-mode: multiply; 
+    font-size: clamp(3rem, 11vw, 8.75rem);
+    color: var(--text-strong);
+    mix-blend-mode: normal;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 24px;
-    z-index: 2;
+    z-index: 3;
+    padding: 24px;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
 }
 
 h1 {
@@ -46,12 +85,14 @@ h1 {
     display: flex;
     flex-direction: column;
     line-height: 0.95;
+    animation: titleBreath 4.5s ease-in-out 1.2s infinite;
 }
 
 .word {
     opacity: 0;
     transform: translateY(30px) scale(0.98);
     animation: titleReveal 0.9s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    letter-spacing: 0.02em;
 }
 
 .word:nth-child(2) {
@@ -62,31 +103,37 @@ h1 {
     position: absolute;
     width: 90%;
     height: 80vh;
-    border: 3px solid #da4d11;
+    border: 3px solid var(--brand-amber);
     border-radius: 30px;
     z-index: 99;
-    box-shadow: 0 5px 20px #da4d11;
+    box-shadow: 0 5px 20px rgba(255, 122, 26, 0.72);
     animation: frameEnter 1s ease-out forwards, frameGlow 3.2s ease-in-out 1s infinite;
 }
 
 .efeito h1 small {
     font-size: 20px;
-    color: #dc5500;
+    color: var(--text-support);
     max-width: 85%;
     opacity: 0;
     transform: translateY(8px);
     animation: subtitleEnter 0.8s ease-out 0.5s forwards;
+    background: rgba(13, 29, 75, 0.44);
+    border: 1px solid rgba(255, 179, 107, 0.34);
+    border-radius: 999px;
+    padding: 8px 16px;
 }
 
 .frase-rotativa {
     font-size: 22px;
-    color: #f6ece1;
+    color: var(--text-strong);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
-    background: rgba(9, 23, 122, 0.62);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: linear-gradient(90deg, rgba(13, 29, 75, 0.92), rgba(20, 42, 101, 0.88));
+    border: 1px solid rgba(255, 190, 132, 0.54);
     border-radius: 999px;
     padding: 12px 20px;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+    animation: badgeFloat 3.4s ease-in-out infinite;
 }
 
 .frase-rotativa.oculta {
@@ -94,10 +141,34 @@ h1 {
     transform: translateY(8px);
 }
 
+.flag-pe {
+    display: inline-block;
+    width: 1.2em;
+    height: 0.8em;
+    margin: 0 0.2em;
+    vertical-align: -0.08em;
+    border-radius: 0.08em;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: linear-gradient(90deg, #d91023 0 33.33%, #ffffff 33.33% 66.66%, #d91023 66.66% 100%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
 @keyframes titleReveal {
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes titleBreath {
+    0%,
+    100% {
+        transform: translateY(0);
+        filter: drop-shadow(0 0 0 rgba(255, 179, 107, 0));
+    }
+    50% {
+        transform: translateY(-2px);
+        filter: drop-shadow(0 0 10px rgba(255, 179, 107, 0.28));
     }
 }
 
@@ -115,12 +186,12 @@ h1 {
 @keyframes frameGlow {
     0%,
     100% {
-        box-shadow: 0 5px 16px rgba(218, 77, 17, 0.75);
-        border-color: rgba(218, 77, 17, 0.85);
+        box-shadow: 0 5px 16px rgba(255, 122, 26, 0.72);
+        border-color: rgba(255, 122, 26, 0.86);
     }
     50% {
-        box-shadow: 0 0 34px rgba(255, 147, 66, 0.95);
-        border-color: rgba(255, 147, 66, 1);
+        box-shadow: 0 0 36px rgba(255, 179, 107, 0.92);
+        border-color: rgba(255, 179, 107, 1);
     }
 }
 
@@ -131,32 +202,75 @@ h1 {
     }
 }
 
+@keyframes badgeFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes videoDrift {
+    0% {
+        transform: scale(1) translateX(0);
+    }
+    100% {
+        transform: scale(1.05) translateX(-1.2%);
+    }
+}
+
+@keyframes lightSweep {
+    0%,
+    30% {
+        transform: translateX(0) skewX(-15deg);
+        opacity: 0;
+    }
+    42%,
+    58% {
+        opacity: 1;
+    }
+    75%,
+    100% {
+        transform: translateX(340%) skewX(-15deg);
+        opacity: 0;
+    }
+}
+
 @media screen and (max-width: 480px) {
     .efeito h1 {
-        font-size: 60px; 
+        font-size: 60px;
         gap: 14px;
+        padding: 18px;
     }
 
     .efeito h1 small {
-        font-size: 12px;
-		max-width: 88%;
+        font-size: 13px;
+		max-width: 94%;
+		padding: 7px 10px;
     }
 
 	.frase-rotativa {
-		font-size: 14px;
+		font-size: 15px;
 		padding: 8px 12px;
-		max-width: 90%;
+		max-width: 94%;
 	}
 	
 	.efeito .line {
-		height: 95%;
+		height: 93%;
+		width: 93%;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
+	.efeito video,
+	.efeito::after,
 	.word,
+	.title-main,
 	.efeito .line,
-	.efeito h1 small {
+	.efeito h1 small,
+	.frase-rotativa {
 		animation: none;
 		opacity: 1;
 		transform: none;

@@ -11,6 +11,29 @@ function decodificarId(id) {
     }
 }
 
+function escribirTexto(elemento, texto, velocidad = 26) {
+    if (!elemento) {
+        return;
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        elemento.textContent = texto;
+        return;
+    }
+
+    elemento.textContent = '';
+    let indice = 0;
+
+    const intervalo = window.setInterval(() => {
+        elemento.textContent += texto.charAt(indice);
+        indice += 1;
+
+        if (indice >= texto.length) {
+            window.clearInterval(intervalo);
+        }
+    }, velocidad);
+}
+
 function actualizarMensajePersonalizado() {
     const id = obtenerParametroId();
     const dedicatoria = document.getElementById('dedicatoria');
@@ -22,11 +45,15 @@ function actualizarMensajePersonalizado() {
     const nombre = id ? decodificarId(id) : '';
 
     if (nombre) {
-        dedicatoria.textContent = `${nombre} agradecemos tu dedicacion y esfuerzo en tu trabajo`;
+        escribirTexto(dedicatoria, `${nombre} agradecemos tu dedicacion y esfuerzo en tu trabajo`);
         return;
     }
 
-    dedicatoria.textContent = 'Hoy celebramos el valor de cada oficio y cada esfuerzo diario.';
+    escribirTexto(dedicatoria, 'Hoy celebramos el valor de cada oficio y cada esfuerzo diario.');
+}
+
+function renderizarFrase(frase) {
+    return frase.replace('[BANDERA_PE]', '<span class="flag-pe" role="img" aria-label="Bandera de Peru"></span>');
 }
 
 function iniciarFrasesRotativas() {
@@ -39,11 +66,12 @@ function iniciarFrasesRotativas() {
     const frases = [
         'Gracias por construir futuro con tus manos.',
         'Gracias por cuidar, enseñar y servir cada dia.',
-        'Gracias por mover al país(🇵🇪) con tu trabajo.'
+        'Gracias por impulsar al pais [BANDERA_PE] con tu trabajo.',
+        'Hoy honramos la fuerza de todas y todos los trabajadores.'
     ];
 
     let indice = 0;
-    fraseRotativa.textContent = frases[indice];
+    fraseRotativa.innerHTML = renderizarFrase(frases[indice]);
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         return;
@@ -54,7 +82,7 @@ function iniciarFrasesRotativas() {
 
         window.setTimeout(() => {
             indice = (indice + 1) % frases.length;
-            fraseRotativa.textContent = frases[indice];
+            fraseRotativa.innerHTML = renderizarFrase(frases[indice]);
             fraseRotativa.classList.remove('oculta');
         }, 300);
     }, 3200);
