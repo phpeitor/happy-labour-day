@@ -85,7 +85,20 @@ h1 {
     display: flex;
     flex-direction: column;
     line-height: 0.95;
-    animation: titleBreath 4.5s ease-in-out 1.2s infinite;
+    animation: titleBreath 4.5s ease-in-out 1.2s infinite, titleParallax 20s ease-in-out infinite;
+    position: relative;
+}
+
+.title-main.shine-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 6s ease-in-out infinite;
+    pointer-events: none;
 }
 
 .word {
@@ -95,8 +108,22 @@ h1 {
     letter-spacing: 0.02em;
 }
 
+.word:nth-child(1) {
+    animation-delay: 0s;
+}
+
 .word:nth-child(2) {
-    animation-delay: 0.24s;
+    animation-delay: 0.28s;
+}
+
+.cursor-blink {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: var(--text-support);
+    margin-left: 2px;
+    animation: cursorBlink 0.8s step-end infinite;
+    vertical-align: text-bottom;
 }
 
 .efeito .line {
@@ -115,12 +142,19 @@ h1 {
     color: var(--text-support);
     max-width: 85%;
     opacity: 0;
-    transform: translateY(8px);
-    animation: subtitleEnter 0.8s ease-out 0.5s forwards;
+    transform: translateY(8px) translateX(0);
+    animation: subtitleEnter 0.8s ease-out 0.72s forwards, subtitleParallax 22s ease-in-out 0.72s infinite;
     background: rgba(13, 29, 75, 0.44);
     border: 1px solid rgba(255, 179, 107, 0.34);
     border-radius: 999px;
     padding: 8px 16px;
+}
+
+.frase-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
 }
 
 .frase-rotativa {
@@ -133,7 +167,22 @@ h1 {
     padding: 12px 20px;
     transition: opacity 0.3s ease, transform 0.3s ease;
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
-    animation: badgeFloat 3.4s ease-in-out infinite;
+    animation: badgeFloat 3.4s ease-in-out infinite, badgeParallax 24s ease-in-out infinite;
+    opacity: 0;
+    transform: translateY(0);
+}
+
+.frase-rotativa.visible {
+    opacity: 1;
+}
+
+.progress-bar {
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-amber), var(--brand-amber-soft));
+    border-radius: 999px;
+    box-shadow: 0 0 8px rgba(255, 179, 107, 0.78);
+    animation: none;
 }
 
 .frase-rotativa.oculta {
@@ -157,6 +206,65 @@ h1 {
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes titleParallax {
+    0% {
+        transform: translateY(0) translateX(-8px);
+    }
+    50% {
+        transform: translateY(0) translateX(8px);
+    }
+    100% {
+        transform: translateY(0) translateX(-8px);
+    }
+}
+
+@keyframes subtitleParallax {
+    0% {
+        transform: translateY(8px) translateX(6px);
+    }
+    50% {
+        transform: translateY(8px) translateX(-6px);
+    }
+    100% {
+        transform: translateY(8px) translateX(6px);
+    }
+}
+
+@keyframes badgeParallax {
+    0% {
+        transform: translateY(-3px) translateX(-4px);
+    }
+    50% {
+        transform: translateY(-3px) translateX(4px);
+    }
+    100% {
+        transform: translateY(-3px) translateX(-4px);
+    }
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    7% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes cursorBlink {
+    0%,
+    50% {
+        opacity: 1;
+    }
+    51%,
+    100% {
+        opacity: 0;
     }
 }
 
@@ -251,11 +359,19 @@ h1 {
 		padding: 7px 10px;
     }
 
+    .frase-container {
+        gap: 6px;
+    }
+
 	.frase-rotativa {
 		font-size: 15px;
 		padding: 8px 12px;
 		max-width: 94%;
 	}
+
+    .progress-bar {
+        height: 1.5px;
+    }
 	
 	.efeito .line {
 		height: 93%;
@@ -268,12 +384,18 @@ h1 {
 	.efeito::after,
 	.word,
 	.title-main,
+	.title-main.shine-effect::before,
 	.efeito .line,
 	.efeito h1 small,
-	.frase-rotativa {
+	.frase-rotativa,
+	.cursor-blink {
 		animation: none;
 		opacity: 1;
 		transform: none;
+	}
+
+	.cursor-blink {
+		display: none;
 	}
 
 	.frase-rotativa {

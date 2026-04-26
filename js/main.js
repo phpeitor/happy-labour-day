@@ -21,6 +21,7 @@ function escribirTexto(elemento, texto, velocidad = 26) {
         return;
     }
 
+    const cursorElem = document.getElementById('cursor-dedicatoria');
     elemento.textContent = '';
     let indice = 0;
 
@@ -30,6 +31,11 @@ function escribirTexto(elemento, texto, velocidad = 26) {
 
         if (indice >= texto.length) {
             window.clearInterval(intervalo);
+            if (cursorElem) {
+                cursorElem.style.display = 'none';
+            }
+        } else if (cursorElem) {
+            cursorElem.style.display = 'inline-block';
         }
     }, velocidad);
 }
@@ -58,6 +64,7 @@ function renderizarFrase(frase) {
 
 function iniciarFrasesRotativas() {
     const fraseRotativa = document.getElementById('frase-rotativa');
+    const progressBar = document.getElementById('progress-bar');
 
     if (!fraseRotativa) {
         return;
@@ -72,21 +79,52 @@ function iniciarFrasesRotativas() {
 
     let indice = 0;
     fraseRotativa.innerHTML = renderizarFrase(frases[indice]);
+    fraseRotativa.classList.add('visible');
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         return;
     }
 
+    const cicloMs = 3200;
+    const transicionMs = 300;
+    const visibleMs = cicloMs - transicionMs * 2;
+
+    const iniciarProgreso = () => {
+        if (progressBar) {
+            progressBar.style.animation = 'none';
+            progressBar.offsetHeight;
+            progressBar.style.animation = `progressFill ${visibleMs}ms linear`;
+        }
+    };
+
+    iniciarProgreso();
+
     window.setInterval(() => {
-        fraseRotativa.classList.add('oculta');
+        fraseRotativa.classList.remove('visible');
 
         window.setTimeout(() => {
             indice = (indice + 1) % frases.length;
             fraseRotativa.innerHTML = renderizarFrase(frases[indice]);
-            fraseRotativa.classList.remove('oculta');
-        }, 300);
-    }, 3200);
+            fraseRotativa.classList.add('visible');
+            iniciarProgreso();
+        }, transicionMs);
+    }, cicloMs);
 }
+
+const estilosProgreso = `
+    @keyframes progressFill {
+        0% {
+            width: 0;
+        }
+        100% {
+            width: 100%;
+        }
+    }
+`;
+
+const styleSheet = document.createElement('style');
+styleSheet.textContent = estilosProgreso;
+document.head.appendChild(styleSheet);
 
 function iniciarLanding() {
     actualizarMensajePersonalizado();

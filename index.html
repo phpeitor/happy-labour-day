@@ -13,14 +13,17 @@
 <body>
 	<div class="efeito">
 		<div class="line"> </div>
-		<video src="video/video.mp4" autoplay loop muted></video>
+		<video src="resources/video.mp4" autoplay loop muted></video>
 		<h1 id="mensaje" class="mensaje">
-			<span class="title-main" aria-label="Feliz dia del Trabajador">
+			<span class="title-main shine-effect" aria-label="Feliz dia del Trabajador">
 				<span class="word">Feliz día</span>
 				<span class="word">del Trabajador</span>
 			</span>
-			<small id="dedicatoria" class="dedicatoria"></small>
-			<span id="frase-rotativa" class="frase-rotativa" aria-live="polite"></span>
+			<small id="dedicatoria" class="dedicatoria"><span id="cursor-dedicatoria" class="cursor-blink"></span></small>
+			<div class="frase-container">
+				<span id="frase-rotativa" class="frase-rotativa" aria-live="polite"></span>
+				<div class="progress-bar" id="progress-bar"></div>
+			</div>
 		</h1>
 	</div>
 	<script src="./js/main.js" defer></script>

@@ -43,7 +43,7 @@ Sube los archivos a tu servidor web (Apache, Nginx, etc.) y accede desde disposi
 Ejemplo con parametro:
 
 ```txt
-index.html?id=Sm9zZQ==
+index.html?id=QWxlamFuZHJv
 ```
 
 ## Estructura del proyecto
