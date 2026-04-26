@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='75'>👷</text></svg>" />
     <title>Happy Labour Day</title>
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="./css/fonts.css">
@@ -12,13 +13,16 @@
 <body>
 	<div class="efeito">
 		<div class="line"> </div>
-			<video src="video/video.mp4" autoplay loop muted></video>
-			<h1 id="mensaje">Feliz día del Trabajador</h1>  
-			
-			
+		<video src="video/video.mp4" autoplay loop muted></video>
+		<h1 id="mensaje" class="mensaje">
+			<span class="title-main" aria-label="Feliz dia del Trabajador">
+				<span class="word">Feliz día</span>
+				<span class="word">del Trabajador</span>
+			</span>
+			<small id="dedicatoria" class="dedicatoria"></small>
+			<span id="frase-rotativa" class="frase-rotativa" aria-live="polite"></span>
+		</h1>
 	</div>
-
 	<script src="./js/main.js" defer></script>
-
 </body>
 </html>
