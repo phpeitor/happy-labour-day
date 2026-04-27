@@ -170,6 +170,10 @@ h1 {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
+.nombre-form.oculto {
+    display: none;
+}
+
 .nombre-form input {
     width: min(44vw, 340px);
     border: 0;
@@ -194,6 +198,26 @@ h1 {
 
 .nombre-form button:hover {
     filter: brightness(1.08);
+}
+
+.actualizar-nombre {
+    border: 1px solid rgba(255, 190, 132, 0.65);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #f7efe3;
+    background: rgba(13, 29, 75, 0.74);
+    cursor: pointer;
+    z-index: 5;
+}
+
+.actualizar-nombre:hover {
+    filter: brightness(1.12);
+}
+
+.actualizar-nombre.oculto {
+    display: none;
 }
 
 .efeito h1 small {
@@ -460,6 +484,11 @@ h1 {
         font-size: 13px;
         padding: 9px 12px;
         white-space: nowrap;
+    }
+
+    .actualizar-nombre {
+        font-size: 12px;
+        padding: 6px 10px;
     }
 
     .efeito h1 {

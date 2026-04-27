@@ -73,7 +73,7 @@ function actualizarMensajePersonalizado() {
     const nombre = id ? decodificarId(id) : '';
 
     if (nombre) {
-        escribirTexto(dedicatoria, `${nombre} agradecemos tu dedicacion y esfuerzo en tu trabajo`);
+        escribirTexto(dedicatoria, `${nombre} agradecemos tu dedicación y esfuerzo en tu trabajo`);
         return;
     }
 
@@ -83,17 +83,37 @@ function actualizarMensajePersonalizado() {
 function inicializarFormularioNombre() {
     const form = document.getElementById('nombre-form');
     const input = document.getElementById('nombre-input');
+    const botonActualizar = document.getElementById('actualizar-nombre');
 
-    if (!form || !input) {
+    if (!form || !input || !botonActualizar) {
         return;
     }
 
     const idActual = obtenerParametroId();
     const nombreActual = idActual ? decodificarId(idActual) : '';
 
+    const mostrarFormulario = () => {
+        form.classList.remove('oculto');
+        botonActualizar.classList.add('oculto');
+    };
+
+    const ocultarFormulario = () => {
+        form.classList.add('oculto');
+        botonActualizar.classList.remove('oculto');
+    };
+
     if (nombreActual) {
         input.value = nombreActual;
+        ocultarFormulario();
+    } else {
+        mostrarFormulario();
     }
+
+    botonActualizar.addEventListener('click', () => {
+        mostrarFormulario();
+        input.focus();
+        input.select();
+    });
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -105,6 +125,7 @@ function inicializarFormularioNombre() {
         }
 
         const idCodificado = codificarId(nombre);
+        ocultarFormulario();
         const rutaActual = window.location.pathname.replace(/index\.html$/i, '');
         const baseRuta = rutaActual.endsWith('/') ? rutaActual : `${rutaActual}/`;
         window.location.href = `${baseRuta}?id=${encodeURIComponent(idCodificado)}`;
