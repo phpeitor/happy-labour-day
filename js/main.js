@@ -3,11 +3,33 @@ function obtenerParametroId() {
     return urlParams.get('id');
 }
 
+function codificarId(texto) {
+    try {
+        const bytes = new TextEncoder().encode(texto);
+        let binario = '';
+
+        bytes.forEach((byte) => {
+            binario += String.fromCharCode(byte);
+        });
+
+        return btoa(binario);
+    } catch (error) {
+        return btoa(texto);
+    }
+}
+
 function decodificarId(id) {
     try {
-        return atob(id);
+        const binario = atob(id);
+        const bytes = Uint8Array.from(binario, (char) => char.charCodeAt(0));
+
+        return new TextDecoder().decode(bytes);
     } catch (error) {
-        return '';
+        try {
+            return atob(id);
+        } catch (fallbackError) {
+            return '';
+        }
     }
 }
 
@@ -56,6 +78,37 @@ function actualizarMensajePersonalizado() {
     }
 
     escribirTexto(dedicatoria, 'Hoy celebramos el valor de cada oficio y cada esfuerzo diario.');
+}
+
+function inicializarFormularioNombre() {
+    const form = document.getElementById('nombre-form');
+    const input = document.getElementById('nombre-input');
+
+    if (!form || !input) {
+        return;
+    }
+
+    const idActual = obtenerParametroId();
+    const nombreActual = idActual ? decodificarId(idActual) : '';
+
+    if (nombreActual) {
+        input.value = nombreActual;
+    }
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const nombre = input.value.trim();
+        if (!nombre) {
+            input.focus();
+            return;
+        }
+
+        const idCodificado = codificarId(nombre);
+        const rutaActual = window.location.pathname.replace(/index\.html$/i, '');
+        const baseRuta = rutaActual.endsWith('/') ? rutaActual : `${rutaActual}/`;
+        window.location.href = `${baseRuta}?id=${encodeURIComponent(idCodificado)}`;
+    });
 }
 
 function renderizarFrase(frase) {
@@ -129,6 +182,7 @@ document.head.appendChild(styleSheet);
 function iniciarLanding() {
     actualizarMensajePersonalizado();
     iniciarFrasesRotativas();
+    inicializarFormularioNombre();
 }
 
 // ===================== Logo Lightbox =====================
