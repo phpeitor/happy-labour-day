@@ -216,11 +216,35 @@ h1 {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
 }
 
+.eliminar-nombre {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 999px;
+    display: inline-grid;
+    place-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #f9f4ec;
+    background: linear-gradient(90deg, #ff7a1a, #ffb36b);
+    cursor: pointer;
+    z-index: 5;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
 .actualizar-nombre:hover {
     filter: brightness(1.12);
 }
 
+.eliminar-nombre:hover {
+    filter: brightness(1.12);
+}
+
 .actualizar-nombre.oculto {
+    display: none;
+}
+
+.eliminar-nombre.oculto {
     display: none;
 }
 
@@ -502,6 +526,12 @@ h1 {
         width: 34px;
         height: 34px;
         font-size: 18px;
+    }
+
+    .eliminar-nombre {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
     }
 
     .dedicatoria-row {

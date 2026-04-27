@@ -73,7 +73,7 @@ function actualizarMensajePersonalizado() {
     const nombre = id ? decodificarId(id) : '';
 
     if (nombre) {
-        escribirTexto(dedicatoria, `${nombre} agradecemos tu dedicación y esfuerzo en tu trabajo`);
+        escribirTexto(dedicatoria, `${nombre} agradecemos tu dedicación y esfuerzo.`);
         return;
     }
 
@@ -84,8 +84,9 @@ function inicializarFormularioNombre() {
     const form = document.getElementById('nombre-form');
     const input = document.getElementById('nombre-input');
     const botonActualizar = document.getElementById('actualizar-nombre');
+    const botonEliminar = document.getElementById('eliminar-nombre');
 
-    if (!form || !input || !botonActualizar) {
+    if (!form || !input || !botonActualizar || !botonEliminar) {
         return;
     }
 
@@ -95,11 +96,13 @@ function inicializarFormularioNombre() {
     const mostrarFormulario = () => {
         form.classList.remove('oculto');
         botonActualizar.classList.add('oculto');
+        botonEliminar.classList.add('oculto');
     };
 
     const ocultarFormulario = () => {
         form.classList.add('oculto');
         botonActualizar.classList.remove('oculto');
+        botonEliminar.classList.remove('oculto');
     };
 
     if (nombreActual) {
@@ -113,6 +116,12 @@ function inicializarFormularioNombre() {
         mostrarFormulario();
         input.focus();
         input.select();
+    });
+
+    botonEliminar.addEventListener('click', () => {
+        const rutaActual = window.location.pathname.replace(/index\.html$/i, '');
+        const baseRuta = rutaActual.endsWith('/') ? rutaActual : `${rutaActual}/`;
+        window.location.href = baseRuta;
     });
 
     form.addEventListener('submit', (event) => {
