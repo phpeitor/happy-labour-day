@@ -1,6 +1,6 @@
 # Happy Labour Day 👷
 
-[![forthebadge](https://forthebadge.com/badges/made-with-javascript.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/badges/uses-css.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/badges/built-with-love.svg)](https://www.linkedin.com/in/drphp/)
 
 Landing page conmemorativa por el Dia del Trabajador.
