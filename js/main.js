@@ -127,11 +127,34 @@ function inicializarFormularioNombre() {
         input.select();
     });
 
-    // normalizar mientras escribe (opcional): no permitir espacios iniciales ni múltiples
+    // Validación en tiempo real: evitar espacios y caracteres no permitidos
+    input.addEventListener('keydown', (e) => {
+        // impedir la tecla espacio
+        if (e.key === ' ') {
+            e.preventDefault();
+            return;
+        }
+    });
+
+    // Manejar pegado: sanitizar texto pegado
+    input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text') || '';
+        const sanitized = paste.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/gu, '');
+        const start = input.selectionStart || 0;
+        const end = input.selectionEnd || 0;
+        const before = input.value.slice(0, start);
+        const after = input.value.slice(end);
+        input.value = before + sanitized + after;
+        input.dispatchEvent(new Event('input'));
+    });
+
+    // Input: eliminar espacios y caracteres no alfabéticos en tiempo real
     input.addEventListener('input', () => {
-        // permitir letras y acentos; conservar mayúsculas mientras escribe
-        // eliminar dobles espacios y recortar
-        input.value = input.value.replace(/\s{2,}/g, ' ');
+        const cleaned = input.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/gu, '');
+        if (input.value !== cleaned) {
+            input.value = cleaned;
+        }
         // limpiar mensaje de validación previo en cuanto el usuario edita
         input.setCustomValidity('');
     });
