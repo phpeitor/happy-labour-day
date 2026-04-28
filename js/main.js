@@ -132,6 +132,8 @@ function inicializarFormularioNombre() {
         // permitir letras y acentos; conservar mayúsculas mientras escribe
         // eliminar dobles espacios y recortar
         input.value = input.value.replace(/\s{2,}/g, ' ');
+        // limpiar mensaje de validación previo en cuanto el usuario edita
+        input.setCustomValidity('');
     });
 
     // capitalizar al perder el foco
@@ -147,6 +149,9 @@ function inicializarFormularioNombre() {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
+
+        // limpiar mensajes de validación anteriores
+        input.setCustomValidity('');
 
         const raw = input.value.trim();
         if (!raw) {
