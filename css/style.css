@@ -255,6 +255,7 @@ h1 {
     gap: 12px;
     flex-wrap: nowrap;
     width: min(96vw, 1100px);
+    position: relative;
 }
 
 .efeito h1 small {
@@ -271,6 +272,40 @@ h1 {
     border: 1px solid rgba(255, 179, 107, 0.34);
     border-radius: 999px;
     padding: 8px 16px;
+}
+
+/* colocar botones dentro del recuadro (top-right) */
+.dedicatoria-row .dedicatoria {
+    display: inline-block;
+    padding-right: 84px; /* espacio para los botones superpuestos */
+}
+
+.dedicatoria-row .actualizar-nombre,
+.dedicatoria-row .eliminar-nombre {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 6;
+}
+
+.dedicatoria-row .eliminar-nombre {
+    right: 10px;
+}
+
+.dedicatoria-row .actualizar-nombre {
+    right: 56px;
+}
+
+@media screen and (max-width: 480px) {
+    .dedicatoria-row .dedicatoria {
+        padding-right: 72px;
+    }
+    .dedicatoria-row .actualizar-nombre {
+        right: 52px;
+    }
+    .dedicatoria-row .eliminar-nombre {
+        right: 10px;
+    }
 }
 
 .frase-container {

@@ -33,6 +33,14 @@ function decodificarId(id) {
     }
 }
 
+function capitalizeName(name) {
+    if (!name) return '';
+    const trimmed = name.trim();
+    if (!trimmed) return '';
+    const lower = trimmed.toLowerCase();
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
+
 function escribirTexto(elemento, texto, velocidad = 26) {
     if (!elemento) {
         return;
@@ -106,7 +114,8 @@ function inicializarFormularioNombre() {
     };
 
     if (nombreActual) {
-        input.value = nombreActual;
+        // normalizar visualmente el nombre existente
+        input.value = capitalizeName(nombreActual);
         ocultarFormulario();
     } else {
         mostrarFormulario();
@@ -118,6 +127,18 @@ function inicializarFormularioNombre() {
         input.select();
     });
 
+    // normalizar mientras escribe (opcional): no permitir espacios iniciales ni múltiples
+    input.addEventListener('input', () => {
+        // permitir letras y acentos; conservar mayúsculas mientras escribe
+        // eliminar dobles espacios y recortar
+        input.value = input.value.replace(/\s{2,}/g, ' ');
+    });
+
+    // capitalizar al perder el foco
+    input.addEventListener('blur', () => {
+        input.value = capitalizeName(input.value.trim());
+    });
+
     botonEliminar.addEventListener('click', () => {
         const rutaActual = window.location.pathname.replace(/index\.html$/i, '');
         const baseRuta = rutaActual.endsWith('/') ? rutaActual : `${rutaActual}/`;
@@ -127,11 +148,26 @@ function inicializarFormularioNombre() {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const nombre = input.value.trim();
-        if (!nombre) {
+        const raw = input.value.trim();
+        if (!raw) {
+            input.setCustomValidity('Ingrese un nombre');
+            input.reportValidity();
             input.focus();
             return;
         }
+
+        // validar: sólo una palabra (sin espacios) compuesta por letras (incluye acentos)
+        const singleName = raw.replace(/\s+/g, '');
+        const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+$/u;
+        if (!nameRegex.test(singleName)) {
+            input.setCustomValidity('Ingrese sólo un nombre (sin espacios ni números)');
+            input.reportValidity();
+            input.focus();
+            return;
+        }
+
+        const nombre = capitalizeName(singleName);
+        input.value = nombre;
 
         const idCodificado = codificarId(nombre);
         ocultarFormulario();
