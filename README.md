@@ -5,9 +5,9 @@
 
 Landing page conmemorativa por el Dia del Trabajador.
 
-[![Video](https://img.youtube.com/vi/VXpRDStn5Yk/0.jpg)](https://www.youtube.com/watch?v=VXpRDStn5Yk)
+[![Video](https://img.youtube.com/vi/96Yp3_Z8uEI/0.jpg)](https://www.youtube.com/watch?v=96Yp3_Z8uEI)
 
-[![Video Demo](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=VXpRDStn5Yk)
+[![Video Demo](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=96Yp3_Z8uEI)
 
 ## Cómo ejecutar el proyecto 🚀
 
